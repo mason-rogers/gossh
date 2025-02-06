@@ -28,7 +28,9 @@ Download the zip file for Windows from the [releases page](https://github.com/ma
 
 ### Build from Source
 ```bash
-go install github.com/mason-rogers/gossh@latest
+git clone https://github.com/mason-rogers/gossh
+cd gossh
+go build -o gossh main.go
 ```
 
 ## Usage
