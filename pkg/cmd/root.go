@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/mason-rogers/gossh/pkg/build_info"
 	"github.com/mason-rogers/gossh/pkg/config"
 	"github.com/mason-rogers/gossh/pkg/menu"
 	"github.com/mason-rogers/gossh/pkg/ssh"
@@ -11,7 +12,12 @@ import (
 )
 
 func init() {
+	rootCmd.Version = build_info.GetDescription()
+	rootCmd.SetVersionTemplate(`{{printf .Version }}`)
+
 	rootCmd.AddCommand(importCmd)
+	rootCmd.AddCommand(versionCmd)
+
 	importCmd.AddCommand(importTermiusCmd)
 }
 
