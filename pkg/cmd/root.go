@@ -13,7 +13,7 @@ import (
 
 func init() {
 	rootCmd.Version = build_info.GetDescription()
-	rootCmd.SetVersionTemplate(`{{printf .Version }}`)
+	rootCmd.SetVersionTemplate(`{{printf "%s\n" .Version }}`)
 
 	rootCmd.AddCommand(importCmd)
 	rootCmd.AddCommand(versionCmd)
