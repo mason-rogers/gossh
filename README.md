@@ -19,7 +19,7 @@ Download the pre-compiled binary from the [releases page](https://github.com/mas
 
 ### macOS & Linux:
 ```bash
-curl -L https://github.com/mason-rogers/gossh/releases/latest/download/gossh_/gossh_$(uname -s)_$(uname -m).tar.gz".tar.gz | tar xz
+curl -L  https://github.com/mason-rogers/gossh/releases/latest/download/gossh_$(uname -s)_$(uname -m).tar.gz | tar xz
 sudo mv gossh /usr/local/bin
 ```
 
