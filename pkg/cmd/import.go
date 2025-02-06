@@ -17,7 +17,7 @@ var importTermiusCmd = &cobra.Command{
 }
 
 func runImportTermius(cmd *cobra.Command, args []string) error {
-	fmt.Println("importing from termius")
+	fmt.Println("Termius Import support coming soon!")
 
 	return nil
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 	"os"
 	"os/exec"
-	"strings"
 )
 
 func buildArgs(host config.Host) ([]string, error) {
@@ -48,7 +47,7 @@ func ConnectToHost(host config.Host) error {
 		return err
 	}
 
-	fmt.Printf("Executing `ssh %s`\n", strings.Join(args, " "))
+	//fmt.Printf("Executing `ssh %s`\n", strings.Join(args, " "))
 
 	cmd := exec.Command("ssh", args...)
 	cmd.Stdin = os.Stdin
