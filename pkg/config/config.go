@@ -49,6 +49,13 @@ func Load() {
 			os.Exit(0)
 		}
 
+		var configParseError viper.ConfigParseError
+		if errors.As(err, &configParseError) {
+			redBold.Fprintln(os.Stderr, "Config file loaded contains invalid YAML")
+			redBold.Fprintf(os.Stderr, "Error: %s\n", configParseError.Error())
+			os.Exit(0)
+		}
+
 		panic(err)
 	}
 
