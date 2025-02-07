@@ -2,8 +2,8 @@ package config
 
 import "strings"
 
-func FindJumpHostByName(name string) *Host {
-	for _, jh := range Get().JumpHosts {
+func (c Config) FindJumpHostByName(name string) *Host {
+	for _, jh := range c.JumpHosts {
 		if jh.Name == name {
 			return &jh
 		}
@@ -11,13 +11,13 @@ func FindJumpHostByName(name string) *Host {
 	return nil
 }
 
-func FindHostByPath(path string) *Host {
+func (c Config) FindHostByPath(path string) *Host {
 	parts := strings.Split(path, "/")
 	if len(parts) < 2 {
 		return nil
 	}
 
-	currentGroups := Get().Groups
+	currentGroups := c.Groups
 	hostName := parts[len(parts)-1]
 
 	// Navigate through groups
