@@ -57,6 +57,8 @@ gossh version
 Create `~/.gossh.yaml`:
 
 ```yaml
+debug: false
+
 jumphosts:
   - name: bastion
     hostname: jump.viction.dev
@@ -86,8 +88,9 @@ groups:
 ```
 
 ### Configuration Structure
+- `debug`: Enable debug logs (default: false)
 
-- `jumphosts`: List of jump hosts (bastions) that can be referenced by hosts
+- `jumphosts`: List of jump hosts (bastions) that can be referenced by hosts (optional)
     - `name`: Unique identifier for the jump host (required)
     - `hostname`: Jump host address (required)
     - `user`: SSH username (default: root)
