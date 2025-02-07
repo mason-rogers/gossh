@@ -63,5 +63,9 @@ func validateHost(host Host, path string) []string {
 		errors = append(errors, fmt.Sprintf("Host (%s) is missing 'hostname'", path))
 	}
 
+	if host.JumpHost != "" && Get().FindJumpHostByName(host.JumpHost) == nil {
+		errors = append(errors, fmt.Sprintf("Host (%s) specified jump host (%s) does not exist", path, host.JumpHost))
+	}
+
 	return errors
 }
