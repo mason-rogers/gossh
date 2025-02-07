@@ -1,10 +1,11 @@
 package config
 
 import (
+	"fmt"
+	"github.com/fatih/color"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"os"
-	"path/filepath"
 )
 
 type Host struct {
@@ -27,9 +28,11 @@ type Config struct {
 	Groups    []Group `mapstructure:"groups"`
 }
 
-var config Config
+var config *Config
 
 func Load() {
+	redBold := color.New(color.Bold, color.FgRed)
+
 	home, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
@@ -38,31 +41,35 @@ func Load() {
 	viper.SetConfigName(".gossh")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(home)
-	viper.AddConfigPath(".")
-
-	// Set defaults
-	viper.SetDefault("jumphosts", []Host{})
-	viper.SetDefault("groups", []Group{})
 
 	if err := viper.ReadInConfig(); err != nil {
 		var configFileNotFoundError viper.ConfigFileNotFoundError
-		if !errors.As(err, &configFileNotFoundError) {
-			panic(err)
+		if errors.As(err, &configFileNotFoundError) {
+			redBold.Fprintf(os.Stderr, "No config file found. Please create one at %s/.gossh.yaml\n", home)
+			os.Exit(0)
 		}
 
-		// Config file not found - create default
-		configPath := filepath.Join(home, ".gossh.yaml")
-		if err := viper.SafeWriteConfigAs(configPath); err != nil {
-			panic(err)
-		}
+		panic(err)
 	}
 
 	// Unmarshal into struct
 	if err := viper.Unmarshal(&config); err != nil {
 		panic(err)
 	}
+
+	// Validate config
+	validationErrors := Get().Validate()
+	if len(validationErrors) > 0 {
+		redBold.Fprintf(os.Stderr, "• %d errors found in configuration\n\n", len(validationErrors))
+
+		for _, validationErr := range validationErrors {
+			fmt.Fprintf(os.Stderr, "%s %s\n", color.RedString("⨯"), validationErr)
+		}
+
+		os.Exit(0)
+	}
 }
 
 func Get() Config {
-	return config
+	return *config
 }

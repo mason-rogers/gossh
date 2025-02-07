@@ -25,7 +25,7 @@ func buildArgs(host config.Host) ([]string, error) {
 	}
 
 	if host.JumpHost != "" {
-		jumpHost := config.FindJumpHostByName(host.JumpHost)
+		jumpHost := config.Get().FindJumpHostByName(host.JumpHost)
 		if jumpHost == nil {
 			return []string{}, errors.New(fmt.Sprintf("Jump host [%s] not found.", host.JumpHost))
 		}

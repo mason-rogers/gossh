@@ -25,7 +25,10 @@ var rootCmd = &cobra.Command{
 	Use:   "gossh [host]",
 	Short: "SSH host manager",
 	Args:  cobra.MaximumNArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
+	PreRun: func(cmd *cobra.Command, args []string) {
+		config.Load()
+	},
+	Run: func(cmd *cobra.Command, args []string) {
 		var err error
 
 		if len(args) > 0 {
@@ -38,8 +41,6 @@ var rootCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "%s\n", err.Error())
 			os.Exit(1)
 		}
-
-		return nil
 	},
 }
 
@@ -48,7 +49,7 @@ func Execute() error {
 }
 
 func handleNonInteractive(args []string) error {
-	host := config.FindHostByPath(args[0])
+	host := config.Get().FindHostByPath(args[0])
 	if host == nil {
 		return errors.New(fmt.Sprintf("Host %s not found", args[0]))
 	}
