@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/mason-rogers/gossh/pkg/build_info"
 	"github.com/mason-rogers/gossh/pkg/config"
 	"github.com/mason-rogers/gossh/pkg/menu"
@@ -17,8 +18,6 @@ func init() {
 
 	rootCmd.AddCommand(importCmd)
 	rootCmd.AddCommand(versionCmd)
-
-	importCmd.AddCommand(importTermiusCmd)
 }
 
 var rootCmd = &cobra.Command{
@@ -38,8 +37,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "%s\n", err.Error())
-			os.Exit(1)
+			color.New(color.FgRed).Fprintf(os.Stderr, "⨯ %s\n", err.Error())
 		}
 	},
 }
@@ -51,7 +49,7 @@ func Execute() error {
 func handleNonInteractive(args []string) error {
 	host := config.Get().FindHostByPath(args[0])
 	if host == nil {
-		return errors.New(fmt.Sprintf("Host %s not found", args[0]))
+		return errors.New(fmt.Sprintf("Host '%s' not found.", args[0]))
 	}
 
 	return ssh.ConnectToHost(*host)
@@ -60,8 +58,7 @@ func handleNonInteractive(args []string) error {
 func handleInteractive() error {
 	host, err := menu.PromptForHost()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err.Error())
-		os.Exit(1)
+		return err
 	}
 
 	return ssh.ConnectToHost(host)

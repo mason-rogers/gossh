@@ -6,6 +6,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func init() {
+	importCmd.AddCommand(importTermiusCmd)
+}
+
 var importCmd = &cobra.Command{
 	Use:   "import",
 	Short: "Import hosts from other sources",
