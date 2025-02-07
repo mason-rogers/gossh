@@ -11,8 +11,8 @@ func PromptForHost() (config.Host, error) {
 
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
-		Active:   "→ {{ if .IsGroup }}📁{{ else }}🖥️{{ end }} {{ .Name | cyan }}",
-		Inactive: "  {{ if .IsGroup }}📁{{ else }}🖥️{{ end }} {{ .Name }}",
+		Active:   "→ {{ if .IsGroup }}📁{{ else }}   🖥{{ end }} {{ .Name | cyan }}",
+		Inactive: "  {{ if .IsGroup }}📁{{ else }}   🖥{{ end }} {{ .Name }}",
 		Selected: "→ {{ .Name | green }}",
 	}
 
