@@ -23,8 +23,8 @@ func validateJumpHost(host Host, path string) []string {
 		errors = append(errors, fmt.Sprintf("Jump Host (%s) is missing 'name'", path))
 	}
 
-	if host.Hostname == "" {
-		errors = append(errors, fmt.Sprintf("Jump Host (%s) is missing 'hostname'", path))
+	if host.Host == "" {
+		errors = append(errors, fmt.Sprintf("Jump Host (%s) is missing 'host'", path))
 	}
 
 	return errors
@@ -59,8 +59,8 @@ func validateHost(host Host, path string) []string {
 		errors = append(errors, fmt.Sprintf("Host (%s) is missing 'name'", path))
 	}
 
-	if host.Hostname == "" {
-		errors = append(errors, fmt.Sprintf("Host (%s) is missing 'hostname'", path))
+	if host.Host == "" {
+		errors = append(errors, fmt.Sprintf("Host (%s) is missing 'host'", path))
 	}
 
 	if host.JumpHost != "" && Get().FindJumpHostByName(host.JumpHost) == nil {

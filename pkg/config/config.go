@@ -10,7 +10,7 @@ import (
 
 type Host struct {
 	Name     string `mapstructure:"name"`
-	Hostname string `mapstructure:"hostname"`
+	Host     string `mapstructure:"host"`
 	User     string `mapstructure:"user"`
 	Port     int    `mapstructure:"port"`
 	KeyFile  string `mapstructure:"keyfile,omitempty"`

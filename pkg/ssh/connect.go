@@ -38,10 +38,10 @@ func buildArgs(host config.Host) ([]string, error) {
 			jumpHost.Port = 22
 		}
 
-		args = append(args, "-J", fmt.Sprintf("%s@%s:%d", jumpHost.User, jumpHost.Hostname, jumpHost.Port))
+		args = append(args, "-J", fmt.Sprintf("%s@%s:%d", jumpHost.User, jumpHost.Host, jumpHost.Port))
 	}
 
-	return append(args, fmt.Sprintf("%s@%s", host.User, host.Hostname)), nil
+	return append(args, fmt.Sprintf("%s@%s", host.User, host.Host)), nil
 }
 
 func ConnectToHost(host config.Host) error {
