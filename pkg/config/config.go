@@ -24,6 +24,7 @@ type Group struct {
 }
 
 type Config struct {
+	Debug     bool    `mapstructure:"debug"`
 	JumpHosts []Host  `mapstructure:"jumphosts"`
 	Groups    []Group `mapstructure:"groups"`
 }

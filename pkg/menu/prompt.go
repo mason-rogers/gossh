@@ -10,7 +10,7 @@ func PromptForHost() (config.Host, error) {
 	menuItems := buildMenuItems(config.Get().Groups, "")
 
 	templates := &promptui.SelectTemplates{
-		Label:    "{{ . }}",
+		Label:    "{{ . | green }}",
 		Active:   "→ {{ if .IsGroup }}📁{{ else }}   🖥{{ end }} {{ .Name | cyan }}",
 		Inactive: "  {{ if .IsGroup }}📁{{ else }}   🖥{{ end }} {{ .Name }}",
 		Selected: "→ {{ .Name | green }}",

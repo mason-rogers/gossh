@@ -2,6 +2,7 @@ package build_info
 
 import (
 	"fmt"
+	"github.com/mason-rogers/gossh/pkg/config"
 	"os"
 	"runtime"
 )
@@ -17,5 +18,5 @@ func GetDescription() string {
 }
 
 func RunningInDebug() bool {
-	return os.Getenv("GOSSH_DEBUG") == "true"
+	return os.Getenv("GOSSH_DEBUG") == "true" || config.Get().Debug
 }

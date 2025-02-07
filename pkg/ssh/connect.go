@@ -2,6 +2,7 @@ package ssh
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/mason-rogers/gossh/pkg/build_info"
 	"github.com/mason-rogers/gossh/pkg/config"
 	"github.com/pkg/errors"
@@ -50,7 +51,7 @@ func ConnectToHost(host config.Host) error {
 	}
 
 	if build_info.RunningInDebug() {
-		fmt.Printf("Executing `ssh %s`\n", strings.Join(args, " "))
+		fmt.Printf("→ %s\n", color.CyanString("Executing `ssh %s`", strings.Join(args, " ")))
 	}
 
 	cmd := exec.Command("ssh", args...)
